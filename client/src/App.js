@@ -11,7 +11,7 @@ function App() {
 
       <div className='bg-white rounded-md m-4 p-4 '>
         <div className='grid grid-cols-4'>
-          <input className="border-2 rounded-md p-2 col-span-3" placeholder='Task to be done...' type="text" />
+          <input className="border-2 rounded-md p-2 col-span-3" placeholder='Task to be done...' type="text" name="newTask"/>
           <button className='bg-purple-700 ml-4 p-2 rounded-md text-white font-semibold'>Add</button>
         </div>
       </div>
