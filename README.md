@@ -5,6 +5,11 @@ This is a simple to-do-list application built using MySQL, Node.js, Express.js, 
 
 ## Figma Portotype
 
+<p float="left">
+<img src="figma-prototype/Frame 1.png" height="230px" />
+<img src="figma-prototype/Frame 2.png" height="230px" />
+</p>
+
 
 ## Acknowledgments
 
