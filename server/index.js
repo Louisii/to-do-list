@@ -1,4 +1,6 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const app = express()
 const mysql = require('mysql')
 require('dotenv').config();
@@ -9,7 +11,6 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
 })
-
 db.connect((err) => {
   if (err) {
     console.error('Error connecting to database: ', err);
@@ -18,8 +19,20 @@ db.connect((err) => {
   console.log('Connected to database successfully!');
 });
 
+app.use(cors())
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/', async (req, res) => {});
+app.post("/api/insert", (req, res) => {
+
+  const taskName = req.body.taskName
+  const taskDone = req.body.taskDone
+
+  const sqlInsert = "insert into todolist.task (taskname, taskdone) values (?,?);"
+  db.query(sqlInsert, [taskName, taskDone], (err, result) => {
+    console.log(err)
+  });
+})
 
 app.listen(3001, () => {
   console.log("running on port 3001")
