@@ -1,9 +1,11 @@
 import logo from './logo.png';
 import './App.css';
 import Task from './components/Task';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 function App() {
+
+  const [taskName, setTaskName] = useState('');
 
   const [checkboxStates, setCheckboxStates] = useState([true, false]);
 
@@ -32,7 +34,7 @@ function App() {
       <img src={logo} className="w-48 p-4 md:w-60" alt="" />
       <div className='bg-white rounded-md m-4 p-4 '>
         <div className='grid grid-cols-4'>
-          <input className="border-2 rounded-md p-2 col-span-3" placeholder='Task to be done...' type="text" name="newTask" />
+          <input onChange={(e) => {setTaskName(e.target.value)}} className="border-2 rounded-md p-2 col-span-3" placeholder='Task to be done...' type="text" name="newTask" />
           <button className='bg-purple-700 ml-4 p-2 rounded-md text-white font-semibold'>Add</button>
         </div>
       </div>
