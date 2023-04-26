@@ -23,6 +23,13 @@ app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.get("/api/get", (req, res) => {
+  const sqlSelect = "SELECT * FROM todolist.task;"
+  db.query(sqlSelect, (err, result) => {
+    res.send(result)
+  })
+})
+
 app.post("/api/insert", (req, res) => {
 
   const taskName = req.body.taskName
