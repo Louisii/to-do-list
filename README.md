@@ -1,6 +1,6 @@
 # to-do-list with MySQL, Node.js, Express.js, React.js, and TailwindCSS
 
-This is a simple to-do-list application built using MySQL, Node.js, Express.js, React.js, and Tailwind CSS. It allows users to create, read, update, and delete tasks from their to-do list.
+This project is a simple task management application built using ReactJS on the frontend and a NodeJS/Express server on the backend. The user can add new tasks to the list, mark them as done, and delete them. The application fetches data from a MySQL database using Axios. The interface is designed using Tailwind CSS and features a responsive layout.
 
 
 ## Figma Portotype
