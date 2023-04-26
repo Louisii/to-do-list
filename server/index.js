@@ -54,6 +54,21 @@ app.delete("/api/delete/:taskId", (req, res) => {
   });
 });
 
+app.put("/api/update/:taskId", (req, res) => {
+  const taskId = parseInt(req.params.taskId);
+  const taskDone = req.body.taskDone;
+
+  const sqlUpdate = "UPDATE todolist.task SET taskdone = ? WHERE taskid = ?";
+  db.query(sqlUpdate, [taskDone, taskId], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating task.");
+      return;
+    }
+    res.send("Task updated successfully.");
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on port 3001")
 })

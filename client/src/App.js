@@ -23,6 +23,14 @@ function App() {
     
   }, [taskslist])
 
+  
+  const handleCheckboxChange = (index) => {
+    const newCheckboxStates = [...checkboxStates];
+    newCheckboxStates[index] = !newCheckboxStates[index];
+    setCheckboxStates(newCheckboxStates);
+    updateTaskDone(taskslist[index].taskid, newCheckboxStates[index] ? 1 : 0);
+  }
+
   const submitTask = () => {
     Axios.post('http://localhost:3001/api/insert', {
       taskName: taskName,
@@ -41,18 +49,23 @@ function App() {
       })
   }
 
-  const handleCheckboxChange = (index) => {
-    const newCheckboxStates = [...checkboxStates];
-    newCheckboxStates[index] = !newCheckboxStates[index];
-    setCheckboxStates(newCheckboxStates);
-  }
-
   const deleteTask = (taskId) => {
     Axios.delete(`http://localhost:3001/api/delete/${taskId}`).then((response) => {
       console.log(response)
     })
   }
    
+  const updateTaskDone = (taskId, taskDone) => {
+    Axios.put(`http://localhost:3001/api/update/${taskId}`, {
+      taskDone: taskDone
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {
+        console.log("Failed to update task.");
+      })
+  }
 
   return (
     <div className='h-screen bg-gradient-to-r from-fuchsia-600 to-purple-600 md:px-16 lg:px-36 xl:px-52 2xl:px-96'>
