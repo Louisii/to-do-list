@@ -41,6 +41,19 @@ app.post("/api/insert", (req, res) => {
   });
 })
 
+app.delete("/api/delete/:taskId", (req, res) => {
+  const taskId = parseInt(req.params.taskId);
+  const sqlDelete = "DELETE FROM todolist.task WHERE taskId = ?";
+  db.query(sqlDelete, taskId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error deleting task.");
+      return;
+    }
+    res.send("Task deleted successfully.");
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on port 3001")
 })

@@ -9,9 +9,7 @@ function App() {
   const [taskName, setTaskName] = useState('');
   const [taskDone, setTaskDone] = useState(0);
   const [taskslist, setTaskList] = useState([]);
-
   const [checkboxStates, setCheckboxStates] = useState([]);
-
 
   useEffect(() => {
     try {
@@ -31,7 +29,6 @@ function App() {
       taskDone: taskDone
     })
       .then((response) => {
-        alert("Successfully inserted.");
         const newTask = {
           id: response.data.insertId,
           taskname: taskName,
@@ -40,7 +37,7 @@ function App() {
         setTaskList([...taskslist, newTask]); // Adiciona a nova tarefa à lista existente
       })
       .catch(() => {
-        alert("Failed to insert.");
+        console.log("Failed to insert.");
       })
   }
 
@@ -50,6 +47,12 @@ function App() {
     setCheckboxStates(newCheckboxStates);
   }
 
+  const deleteTask = (taskId) => {
+    Axios.delete(`http://localhost:3001/api/delete/${taskId}`).then((response) => {
+      console.log(response)
+    })
+  }
+   
 
   return (
     <div className='h-screen bg-gradient-to-r from-fuchsia-600 to-purple-600 md:px-16 lg:px-36 xl:px-52 2xl:px-96'>
@@ -71,13 +74,11 @@ function App() {
               taskName={task.taskname}
               taskDone={task.taskdone}
               onChange={() => handleCheckboxChange(index)}
+              onClick={() => deleteTask(task.taskid)}
             />
 
           </>
         ))}
-
-
-
 
       </div>
 
