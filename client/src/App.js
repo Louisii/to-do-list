@@ -11,6 +11,7 @@ function App() {
   const [taskslist, setTaskList] = useState([]);
   const [checkboxStates, setCheckboxStates] = useState([]);
 
+
   useEffect(() => {
     try {
       Axios.get('http://localhost:3001/api/get').then((response) => {
@@ -44,6 +45,7 @@ function App() {
           taskdone: taskDone
         };
         setTaskList([...taskslist, newTask]); // Adiciona a nova tarefa à lista existente
+        setTaskName('');
       })
       .catch(() => {
         console.log("Failed to insert.");
@@ -74,14 +76,14 @@ function App() {
       <img src={logo} className="w-48 p-4 md:w-60" alt="" />
       <div className='bg-white rounded-md m-4 p-4 '>
         <div className='grid grid-cols-4'>
-          <input onChange={(e) => { setTaskName(e.target.value) }} className="border-2 rounded-md p-2 col-span-3" placeholder='Task to be done...' type="text" name="newTask" />
-          <button onClick={submitTask} className='bg-purple-700 ml-4 p-2 rounded-md text-white font-semibold'>Add</button>
+        <input onChange={(e) => { setTaskName(e.target.value) }} value={taskName} className="border-2 rounded-md p-2 col-span-3" placeholder='Task to be done...' type="text"/>
+          <button onClick={submitTask} className='bg-purple-700 hover:bg-purple-500 pointer-events-auto ml-4 p-2 rounded-md text-white font-semibold'>Add</button>
         </div>
       </div>
 
       <div className='bg-white rounded-md m-4 p-4 '>
 
-        
+
 
         {taskslist.length === 0 ?
           <p className='text-gray-400 text-center'>Add a new task to start!</p> :
