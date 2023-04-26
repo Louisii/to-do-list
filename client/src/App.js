@@ -14,16 +14,17 @@ function App() {
   useEffect(() => {
     try {
       Axios.get('http://localhost:3001/api/get').then((response) => {
-        setTaskList(response.data)
-        setCheckboxStates(response.data.map((task) => task.taskdone));
+        if (response.data) {
+          setTaskList(response.data)
+          setCheckboxStates(response.data.map((task) => task.taskdone));
+        }
       })
-    }catch (error) {
+    } catch (error) {
       console.error(error);
     }
-    
   }, [taskslist])
 
-  
+
   const handleCheckboxChange = (index) => {
     const newCheckboxStates = [...checkboxStates];
     newCheckboxStates[index] = !newCheckboxStates[index];
@@ -54,7 +55,7 @@ function App() {
       console.log(response)
     })
   }
-   
+
   const updateTaskDone = (taskId, taskDone) => {
     Axios.put(`http://localhost:3001/api/update/${taskId}`, {
       taskDone: taskDone
@@ -80,8 +81,11 @@ function App() {
 
       <div className='bg-white rounded-md m-4 p-4 '>
 
-        {taskslist.map((task, index) => (
-          <>
+        
+
+        {taskslist.length === 0 ?
+          <p className='text-gray-400 text-center'>Add a new task to start!</p> :
+          taskslist.map((task, index) => (
             <Task
               key={index}
               taskName={task.taskname}
@@ -89,9 +93,9 @@ function App() {
               onChange={() => handleCheckboxChange(index)}
               onClick={() => deleteTask(task.taskid)}
             />
+          ))
+        }
 
-          </>
-        ))}
 
       </div>
 
